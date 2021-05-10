@@ -1,50 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 const BasicForm = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
 
-    const [allEntry, setAllEntry] = useState([]);
-    const submitForm = (e) => {
-        e.preventDefault();
-        const newEntry = {email:email, password:password};
-            setAllEntry([...allEntry, newEntry]) ;
-            console.log(newEntry);
-    }
 
     return (
         <>
+        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+            <Navbar.Brand href="#home">Proctor Portal</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+                </Nav>
+            <Nav>
+                <NavDropdown title="Not Signed In" id="collasible-nav-dropdown">
+                </NavDropdown>
+            </Nav>
+            </Navbar.Collapse>
+        </Navbar>
         <div id="loginbox">
-            <form action="" onSubmit={submitForm}>
-                <div className="rightbox">
-                    <label htmlFor="email">Email</label><br></br>
-                    <input type="text" name="email" id="email" autoComplete="off"
-                       value={email}   
-                       onChange={(e) => setEmail(e.target.value)}               
-                    /><br></br>
-                
-                    <label htmlFor="password">Password</label><br></br>
-                    <input type="password" name="password" id="password" autoComplete="off"
-                       value={password} 
-                       onChange={(e) => setPassword(e.target.value)}         
-                    /><br></br>
-                    <button type="submit">Login</button>
-                    <div id="login-button"></div>
-                </div> 
-            </form>
+            <div id="login-button"></div>
         </div>    
-            <div>
-                {
-                    allEntry.map((curElem) => {
-                        return(
-                            <div className="">  
-                                <p>{curElem.email}</p>  
-                                <p>{curElem.password}</p>                    
-                            </div>
-                        )
-                    })
-                }
-            </div>
         </>
     )
 }
