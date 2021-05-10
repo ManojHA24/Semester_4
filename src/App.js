@@ -137,9 +137,9 @@ const HomePage = () => {
                     <div class="col-md-4">
                         <div class="profile-work">
                             <p>Proctor</p>
-                            <a href="">Selva Kumar</a><br/>
-                            <a href="">selavak.cse@bmsce.ac.in</a><br/>
-                            <a href="">+91 6664441112</a>
+                            <a href="/">Selva Kumar</a><br/>
+                            <a href="/">selavak.cse@bmsce.ac.in</a><br/>
+                            <a href="/">+91 6664441112</a>
                         </div>
                     </div>
                     <div class="col-md-8">
