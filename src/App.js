@@ -6,27 +6,31 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 import "./App.css";
 
-import { Navbar, Nav, NavDropdown, Image } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Image, 
+  // Form, Button
+ } from 'react-bootstrap';
 
+// import ReactPhone  from './phone'
 
 class LandingPage extends React.Component{
-  componentDidMount(){
+  async componentDidMount(){
       window.gapi.load("signin2", ()=> {
       window.gapi.signin2.render('login-button')
-      })  
+      })
+         
   }render(){
   if (this.props.isSignedIn === null) {
     return (
-        <h1>Checking if you're signed in...</h1>
+        <h1>  </h1>
     )
   }
-  
   return (
     <BasicForm/>
     )
 }
 
 }
+
 
 class App extends React.Component {
   constructor(props) {
@@ -44,7 +48,6 @@ class App extends React.Component {
         const isSignedIn = authInstance.isSignedIn.get()
         this.setState({isSignedIn})
         authInstance.isSignedIn.listen(isSignedIn => {
-          
           this.state.isSignedIn?window.location.replace("/"):window.location.replace("/home")
           this.setState({isSignedIn})
         })
@@ -71,9 +74,9 @@ class App extends React.Component {
       <div>
         <BrowserRouter>
                 <Switch>
-                    <Route exact path="/"  render={() => this.ifUserSignedIn(HomePage)}>
-                    </Route>
+                    <Route exact path="/"  render={() => this.ifUserSignedIn(HomePage)}/>
                     <Route path="/home"  render={() => this.ifUserSignedIn(HomePage)}/>
+                    <Route path='/signup' render={() => this.ifUserSignedIn(SignUp)}/>
                 </Switch>
             </BrowserRouter>
       </div>
@@ -81,7 +84,87 @@ class App extends React.Component {
   }
 }
 
-const HomePage = () => {
+class SignUp extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      authInstance:0,
+      name:0,
+      email:0,
+      img:0,
+      gId:0,
+    }
+  }
+  componentDidMount(){
+    const authInstance = window.gapi.auth2.getAuthInstance()
+    const user = authInstance.currentUser.get()
+    const profile = user.getBasicProfile();
+    const email = profile.getEmail();
+    const name = profile.getName();
+    const img = profile.getImageUrl();
+    const googleId = profile.getId();
+    this.setState({
+      authInstance: authInstance,
+      name:name,
+      email:email,
+      img:img,
+      gId:googleId,
+    })
+  }
+  render(){
+    return(<> 
+     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+        <Navbar.Brand href="#home">Proctor Portal</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+          </Nav>
+          <Nav>
+            <Image src = {this.state.img} alt = "" width = "40" rounded></Image>
+          <NavDropdown title={this.state.email} id="collasible-nav-dropdown">
+              <NavDropdown.Item href="" onClick ={this.state.authInstance.signOut} >Sign Out</NavDropdown.Item>
+              <NavDropdown.Divider />
+            </NavDropdown>
+        </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    <div className="container emp-profile">
+      <form action="http://localhost:8000/user" method="post">
+        <label >Google ID:</label>
+        <input type="text" id="gid" name="gid" value={this.state.gId}/><br/><br/>
+        <label >Role:</label>
+        <input type="text" id="role" name="role" value="student"/><br/><br/>
+        <label >Name:</label>
+        <input type="text" id="gid" name="name" value={this.state.name}/><br/><br/>
+        <label >Email:</label>
+        <input type="text" id="role" name="email" value= {this.state.email}/><br/><br/>
+        <label >DOB:</label>
+        <input type="text" id="gid" name="dob"/><br/><br/>
+        <label >Proctor:</label>
+        <input type="text" id="role" name="proctor"/><br/><br/>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    </>)
+  }
+}
+
+
+
+class HomePage extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      authInstance:0,
+      name:0,
+      email:0,
+      img:0,
+      gId:0,
+      data:0,
+      status: true
+    }
+  }
+  async componentDidMount(){
   const authInstance = window.gapi.auth2.getAuthInstance()
   const user = authInstance.currentUser.get()
   const profile = user.getBasicProfile();
@@ -89,7 +172,33 @@ const HomePage = () => {
   const name = profile.getName();
   const img = profile.getImageUrl();
   const googleId = profile.getId();
+  await fetch(`user/${googleId}`).then(res => res.json().then(value => {
+    console.log(value)
+    this.setState({
+      authInstance: authInstance,
+      name:name,
+      email:email,
+      img:img,
+      gId:googleId,
+      data:value,
+      status: value.message==="Not found user"?false:true
+    })
+  }))
+  }
 
+  what_to_do(Component){
+    if (this.state.status)
+      return (
+        Component
+      )
+      else
+      return (<>
+        <h1> </h1>
+        {window.location.replace('/signup')}
+      </>)
+  }
+
+  render(){
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -99,89 +208,88 @@ const HomePage = () => {
           <Nav className="mr-auto">
           </Nav>
           <Nav>
-            <Image src = {img} alt = "" width = "40" rounded></Image>
-          <NavDropdown title={email} id="collasible-nav-dropdown">
-              <NavDropdown.Item href="" onClick ={authInstance.signOut} >Sign Out</NavDropdown.Item>
+            <Image src = {this.state.img} alt = "" width = "40" rounded></Image>
+          <NavDropdown title={this.state.email} id="collasible-nav-dropdown">
+              <NavDropdown.Item href="" onClick ={this.state.authInstance.signOut} >Sign Out</NavDropdown.Item>
               <NavDropdown.Divider />
             </NavDropdown>
         </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <div>
-      </div>
-      <div class="container emp-profile">
+      {this.what_to_do(<>
+      <div className="container emp-profile">
             <form method="post">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="profile-img">
-                            <Image src={img} alt="" width = "2" class ="image-rounded"/>
+                <div className="row">
+                    <div className="col-md-4">
+                        <div className="profile-img">
+                            <Image src={this.state.img} alt="" width = "2" className ="image-rounded"/>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="profile-head">
+                    <div className="col-md-6">
+                        <div className="profile-head">
                                     <h5>
-                                       {name}
+                                       {this.state.name}
                                     </h5>
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Basic Profile</a>
+                            <ul className="nav nav-tabs" id="myTab" role="tablist">
+                                <li className="nav-item">
+                                    <a className="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Basic Profile</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <input type="submit"  onClick = {authInstance.signOut} class="profile-edit-btn" name="btnAddMore" value="Sign Out"/>
+                    <div className="col-md-2">
+                        <input type="submit"  onClick = {this.state.authInstance.signOut} className="profile-edit-btn" name="btnAddMore" value="Sign Out"/>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="profile-work">
+                <div className="row">
+                    <div className="col-md-4">
+                        <div className="profile-work">
                             <p>Proctor</p>
                             <a href="/">Selva Kumar</a><br/>
                             <a href="/">selavak.cse@bmsce.ac.in</a><br/>
                             <a href="/">+91 6664441112</a>
                         </div>
                     </div>
-                    <div class="col-md-8">
-                        <div class="tab-content profile-tab" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
+                    <div className="col-md-8">
+                        <div className="tab-content profile-tab" id="myTabContent">
+                            <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div className="row">
+                                            <div className="col-md-6">
                                                 <label>User Google Id</label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p>{googleId}</p>
+                                            <div className="col-md-6">
+                                                <p>{this.state.gId}</p>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
+                                        <div className="row">
+                                            <div className="col-md-6">
                                                 <label>Name</label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p>{name}</p>
+                                            <div className="col-md-6">
+                                                <p>{this.state.name}</p>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
+                                        <div className="row">
+                                            <div className="col-md-6">
                                                 <label>Email</label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p>{email}</p>
+                                            <div className="col-md-6">
+                                                <p>{this.state.email}</p>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
+                                        <div className="row">
+                                            <div className="col-md-6">
                                                 <label>Phone</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div className="col-md-6">
                                                 <p>8050978125</p>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
+                                        <div className="row">
+                                            <div className="col-md-6">
                                                 <label>Semester</label>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div className="col-md-6">
                                                 <p>4</p>
                                             </div>
                                         </div>
@@ -191,11 +299,11 @@ const HomePage = () => {
                 </div>
             </form>           
         </div>
+      </>)}
     </>
   );
 }
-
-
+}
 
 
 export default App;

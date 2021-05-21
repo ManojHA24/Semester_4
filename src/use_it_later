@@ -1,0 +1,67 @@
+// <>
+      // <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+      //   <Navbar.Brand href="#home">Proctor Portal</Navbar.Brand>
+      //   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      //   <Navbar.Collapse id="responsive-navbar-nav">
+      //     <Nav className="mr-auto">
+      //     </Nav>
+      //     <Nav>
+      //       <Image src = {this.state.img} alt = "" width = "40" rounded></Image>
+      //     <NavDropdown title={this.state.email} id="collasible-nav-dropdown">
+      //         <NavDropdown.Item href="" onClick ={this.state.authInstance.signOut} >Sign Out</NavDropdown.Item>
+      //         <NavDropdown.Divider />
+      //       </NavDropdown>
+      //   </Nav>
+      //   </Navbar.Collapse>
+      // </Navbar>
+      // <div className="container emp-profile">
+      //   <Form>
+      //     <Form.Group  md="8">
+      //       <Form.Label>Email address</Form.Label>
+      //       <Form.Control type="email" value={this.state.email} readOnly />
+      //     </Form.Group>
+      //     <Form.Group>
+      //       <Form.Label>Name</Form.Label>
+      //       <Form.Control type="email" value={this.state.name} readOnly />
+      //     </Form.Group>
+      //     <Form.Group controlId="dob">
+      //       <Form.Label>Date of Birth</Form.Label>
+      //       <Form.Control type="date" name="dob" placeholder="Date of Birth" />
+      //     </Form.Group>
+      //     <Form.Group>
+      //       <Form.Label>Department</Form.Label>
+      //       <Form.Control as="select">
+      //         <option>CSE</option>
+      //         <option>ISE</option>
+      //         <option>MECH</option>
+      //         <option>EC</option>
+      //         <option>EEE</option>
+      //         <option>Civil</option>
+      //         <option>Aerospace</option>
+      //         <option>Chemical</option>
+      //       </Form.Control>
+      //     </Form.Group>
+      //     <Form.Group controlId="exampleForm.ControlSelect1">
+      //       <Form.Label>Blood Group</Form.Label>
+      //       <Form.Control as="select">
+      //         <option>A+ve</option>
+      //         <option>B+ve</option>
+      //         <option>O+ve</option>
+      //         <option>AB+ve</option>
+      //         <option>A-ve</option>
+      //         <option>B-ve</option>
+      //         <option>O-ve</option>
+      //         <option>AB-ve</option>
+      //       </Form.Control>
+      //     </Form.Group>
+      //     <Form.Group>
+      //       <ReactPhone/>
+      //     </Form.Group>
+      //     <Button variant="primary" type="submit">
+      //       Submit
+      //     </Button>
+
+      //   </Form>
+      // </div>
+
+      // </>
