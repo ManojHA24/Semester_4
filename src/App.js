@@ -91,9 +91,15 @@ class SignUp extends React.Component{
       authInstance:0,
       name:0,
       email:0,
+      role:"student",
       img:0,
       gId:0,
+      proctor:null,
+      dob:null,
+      respones:null,
     }
+  this.post_it=this.post_it.bind(this)
+
   }
   componentDidMount(){
     const authInstance = window.gapi.auth2.getAuthInstance()
@@ -111,6 +117,26 @@ class SignUp extends React.Component{
       gId:googleId,
     })
   }
+
+
+  post_it(){
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        gid: this.state.gId,
+        role:this.state.role,
+        name:this.state.name,
+        dob:this.state.dob,
+        proctor:this.state.proctor,
+        email:this.state.email,
+      })
+  }
+
+  fetch('http://localhost:8000/user', requestOptions).then(window.location.replace('/home'))
+  }
+
+
   render(){
     return(<> 
      <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -129,21 +155,21 @@ class SignUp extends React.Component{
         </Navbar.Collapse>
       </Navbar>
     <div className="container emp-profile">
-      <form action="http://localhost:8000/user" method="post">
+      <div>
         <label >Google ID:</label>
-        <input type="text" id="gid" name="gid" value={this.state.gId}/><br/><br/>
+        <input type="text" id="gid" name="gid" value={this.state.gId}readOnly/><br/><br/>
         <label >Role:</label>
-        <input type="text" id="role" name="role" value="student"/><br/><br/>
+        <input type="text" id="role" name="role" value="student" readOnly/><br/><br/>
         <label >Name:</label>
-        <input type="text" id="gid" name="name" value={this.state.name}/><br/><br/>
+        <input type="text"  name="name" value={this.state.name} readOnly/><br/><br/>
         <label >Email:</label>
-        <input type="text" id="role" name="email" value= {this.state.email}/><br/><br/>
+        <input type="text"  name="email" value= {this.state.email} readOnly/><br/><br/>
         <label >DOB:</label>
-        <input type="text" id="gid" name="dob"/><br/><br/>
+        <input type="text"  name="dob" onChange={(e) => {this.setState({dob:e.target.value})}}/><br/><br/>
         <label >Proctor:</label>
-        <input type="text" id="role" name="proctor"/><br/><br/>
-        <input type="submit" value="Submit"/>
-      </form>
+        <input type="text"  name="proctor" onChange={(e)=> {this.setState({proctor:e.target.value})}}/><br/><br/>
+        <input type="submit" onClick= {this.post_it} value="Submit"/>
+      </div>
     </div>
     </>)
   }
@@ -156,10 +182,10 @@ class HomePage extends React.Component{
     super(props)
     this.state = {
       authInstance:0,
-      name:0,
+      name:false,
       email:0,
       img:0,
-      gId:0,
+      gId:10000,
       data:0,
       status: true
     }
@@ -180,6 +206,8 @@ class HomePage extends React.Component{
       email:email,
       img:img,
       gId:googleId,
+      proctor:value.proctor,
+      dob: value.dob,
       data:value,
       status: value.message==="Not found user"?false:true
     })
@@ -245,7 +273,7 @@ class HomePage extends React.Component{
                     <div className="col-md-4">
                         <div className="profile-work">
                             <p>Proctor</p>
-                            <a href="/">Selva Kumar</a><br/>
+                            <a href="/">{this.state.proctor}</a><br/>
                             <a href="/">selavak.cse@bmsce.ac.in</a><br/>
                             <a href="/">+91 6664441112</a>
                         </div>
@@ -279,10 +307,10 @@ class HomePage extends React.Component{
                                         </div>
                                         <div className="row">
                                             <div className="col-md-6">
-                                                <label>Phone</label>
+                                                <label>Date of birth</label>
                                             </div>
                                             <div className="col-md-6">
-                                                <p>8050978125</p>
+                                                <p>{this.state.dob}</p>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -301,7 +329,7 @@ class HomePage extends React.Component{
         </div>
       </>)}
     </>
-  );
+      );
 }
 }
 
