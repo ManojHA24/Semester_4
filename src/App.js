@@ -7,10 +7,10 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import "./App.css";
 
 import { Navbar, Nav, NavDropdown, Image, 
-  // Form, Button
+//   Form, Button
  } from 'react-bootstrap';
 
-// import ReactPhone  from './phone'
+ //import ReactPhone  from './phone'
 
 class LandingPage extends React.Component{
   async componentDidMount(){
@@ -91,7 +91,14 @@ class SignUp extends React.Component{
       authInstance:0,
       name:0,
       email:0,
-      role:"student",
+      usn: 0,
+      department: null,
+      mobile_no: null,
+      proctor_id: null,
+      semester: 0,
+      section: 0,
+      batch: 0,
+      role:"Student",
       img:0,
       gId:0,
       proctor:null,
@@ -130,6 +137,14 @@ class SignUp extends React.Component{
         dob:this.state.dob,
         proctor:this.state.proctor,
         email:this.state.email,
+        semester: this.state.semester,
+        mobile_no: this.state.mobile_no,
+        proctor_id: null,
+        department: this.state.department,
+        batch: this.state.batch,
+        usn: this.state.usn,
+        section:'B',
+
       })
   }
 
@@ -143,15 +158,14 @@ class SignUp extends React.Component{
         <Navbar.Brand href="#home">Proctor Portal</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mr-auto">
-          </Nav>
+          <Nav className="mr-auto"></Nav>
           <Nav>
             <Image src = {this.state.img} alt = "" width = "40" rounded></Image>
-          <NavDropdown title={this.state.email} id="collasible-nav-dropdown">
-              <NavDropdown.Item href="" onClick ={this.state.authInstance.signOut} >Sign Out</NavDropdown.Item>
-              <NavDropdown.Divider />
+            <NavDropdown title={this.state.email} id="collasible-nav-dropdown">
+                <NavDropdown.Item href="" onClick ={this.state.authInstance.signOut} >Sign Out</NavDropdown.Item>
+                <NavDropdown.Divider />
             </NavDropdown>
-        </Nav>
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
     <div className="container emp-profile">
@@ -159,7 +173,7 @@ class SignUp extends React.Component{
         <label >Google ID:</label>
         <input type="text" id="gid" name="gid" value={this.state.gId}readOnly/><br/><br/>
         <label >Role:</label>
-        <input type="text" id="role" name="role" value="student" readOnly/><br/><br/>
+        <input type="text" id="role" name="role" value="Student" readOnly/><br/><br/>
         <label >Name:</label>
         <input type="text"  name="name" value={this.state.name} readOnly/><br/><br/>
         <label >Email:</label>
@@ -168,10 +182,88 @@ class SignUp extends React.Component{
         <input type="text"  name="dob" onChange={(e) => {this.setState({dob:e.target.value})}}/><br/><br/>
         <label >Proctor:</label>
         <input type="text"  name="proctor" onChange={(e)=> {this.setState({proctor:e.target.value})}}/><br/><br/>
+        <label >USN:</label>
+        <input type="text"  name="usn" onChange={(e)=> {this.setState({usn:e.target.value})}}/><br/><br/>
+        <label >department:</label>
+        <input type="text"  name="department" onChange={(e)=> {this.setState({department:e.target.value})}}/><br/><br/>
+        <label >batch:</label>
+        <input type="text"  name="batch" onChange={(e)=> {this.setState({batch:e.target.value})}}/><br/><br/>
+        <label >Mobile Number:</label>
+        <input type="text"  name="mobile_no" onChange={(e)=> {this.setState({mobile_no:e.target.value})}}/><br/><br/>
+        <label >Semster:</label>
+        <input type="text"  name="semester" onChange={(e)=> {this.setState({semester:parseInt(e.target.value)})}}/><br/><br/>
         <input type="submit" onClick= {this.post_it} value="Submit"/>
       </div>
     </div>
-    </>)
+    </>
+     /* <>
+       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+         <Navbar.Brand href="#home">Proctor Portal</Navbar.Brand>
+         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+         <Navbar.Collapse id="responsive-navbar-nav">
+           <Nav className="mr-auto">
+           </Nav>
+           <Nav>
+            <Image src = {this.state.img} alt = "" width = "40" rounded></Image>
+           <NavDropdown title={this.state.email} id="collasible-nav-dropdown">
+               <NavDropdown.Item href="" onClick ={this.state.authInstance.signOut} >Sign Out</NavDropdown.Item>
+               <NavDropdown.Divider />
+             </NavDropdown>
+         </Nav>
+         </Navbar.Collapse>
+       </Navbar>
+       <div className="container emp-profile">
+         <Form>
+           <Form.Group  md="8">
+             <Form.Label>Email address</Form.Label>
+             <Form.Control type="email" value={this.state.email} readOnly />
+          </Form.Group>
+           <Form.Group>
+             <Form.Label>Name</Form.Label>
+             <Form.Control type="email" value={this.state.name} readOnly />
+           </Form.Group>
+           <Form.Group controlId="dob">
+             <Form.Label>Date of Birth</Form.Label>
+             <Form.Control type="date" name="dob" placeholder="Date of Birth" />
+           </Form.Group>
+           <Form.Group>
+             <Form.Label>Department</Form.Label>
+             <Form.Control as="select">
+              <option>CSE</option>
+               <option>ISE</option>
+               <option>MECH</option>
+               <option>EC</option>
+               <option>EEE</option>
+               <option>Civil</option>
+               <option>Aerospace</option>
+               <option>Chemical</option>
+             </Form.Control>
+           </Form.Group>
+           <Form.Group controlId="exampleForm.ControlSelect1">
+             <Form.Label>Blood Group</Form.Label>
+             <Form.Control as="select">
+               <option>A+ve</option>
+               <option>B+ve</option>
+               <option>O+ve</option>
+               <option>AB+ve</option>
+               <option>A-ve</option>
+               <option>B-ve</option>
+               <option>O-ve</option>
+               <option>AB-ve</option>
+             </Form.Control>
+           </Form.Group>
+           <Form.Group>
+             <ReactPhone/>
+           </Form.Group>
+           <Button variant="primary" type="submit">
+             Submit
+           </Button>
+
+         </Form>
+      </div>
+
+       </> 
+    </>)*/)
   }
 }
 
@@ -206,7 +298,7 @@ class HomePage extends React.Component{
       email:email,
       img:img,
       gId:googleId,
-      proctor:value.proctor,
+      proctor:value.p_name,
       dob: value.dob,
       data:value,
       status: value.message==="Not found user"?false:true
@@ -256,7 +348,7 @@ class HomePage extends React.Component{
                     <div className="col-md-6">
                         <div className="profile-head">
                                     <h5>
-                                       {this.state.name}
+                                       {this.state.name} {this.state.data.department}-{this.state.data.batch}
                                     </h5>
                             <ul className="nav nav-tabs" id="myTab" role="tablist">
                                 <li className="nav-item">
@@ -274,8 +366,8 @@ class HomePage extends React.Component{
                         <div className="profile-work">
                             <p>Proctor</p>
                             <a href="/">{this.state.proctor}</a><br/>
-                            <a href="/">selavak.cse@bmsce.ac.in</a><br/>
-                            <a href="/">+91 6664441112</a>
+                            <a href="/">{this.state.data.p_email}</a><br/>
+                            <a href="/">{this.state.data.p_mobile_no}</a>
                         </div>
                     </div>
                     <div className="col-md-8">
