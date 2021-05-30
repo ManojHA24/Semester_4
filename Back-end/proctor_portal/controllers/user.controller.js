@@ -1,5 +1,3 @@
-const { response } = require("express")
-const { user } = require("../models/db.config")
 const User = require("../models/user")
 
 exports.create = (req, res) => {
@@ -22,6 +20,7 @@ exports.create = (req, res) => {
         usn: req.body.usn,
         department: req.body.department,
         section: req.body.section,
+        marks: req.body.marks
 
     })
     User.create(user, (err, data) => {
@@ -34,11 +33,6 @@ exports.create = (req, res) => {
 }
 
 
-exports.lal = (req, res) => {
-    console.log(req, req.body)
-    User.lal()
-    res.send({test: "successful"})
-}
 
 exports.findUser = (req, res) => {
     User.findUser(req.params.gid, (err, data) => {

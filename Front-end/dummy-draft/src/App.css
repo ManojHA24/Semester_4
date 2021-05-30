@@ -67,9 +67,11 @@ body{
   font-weight: 600;
   margin-top: 10%;
 }
-.profile-work a{
+#p_details{
   text-decoration: none;
   color: #495057;
+  margin: 0, 0, 0, 0;
+  padding: 0, 0, 0, 0;
   font-weight: 600;
   font-size: 14px;
 }

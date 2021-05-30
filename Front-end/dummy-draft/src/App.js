@@ -6,7 +6,7 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 import "./App.css";
 
-import { Navbar, Nav, NavDropdown, Image, 
+import { Navbar, Nav, NavDropdown, Image, Table
 //   Form, Button
  } from 'react-bootstrap';
 
@@ -365,9 +365,9 @@ class HomePage extends React.Component{
                     <div className="col-md-4">
                         <div className="profile-work">
                             <p>Proctor</p>
-                            <a href="/">{this.state.proctor}</a><br/>
-                            <a href="/">{this.state.data.p_email}</a><br/>
-                            <a href="/">{this.state.data.p_mobile_no}</a>
+                            <p id = "p_details">{this.state.proctor}</p>
+                            <p id = "p_details">{this.state.data.p_email}</p>
+                            <p id = "p_details">{this.state.data.p_mobile_no}</p>
                         </div>
                     </div>
                     <div className="col-md-8">
@@ -412,6 +412,176 @@ class HomePage extends React.Component{
                                             <div className="col-md-6">
                                                 <p>4</p>
                                             </div>
+                                        </div>
+                                        <div>
+                                          <Table responsive="sm">
+                                            <thead>
+                                              <tr>
+                                                <th>#</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>1</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                              </tr>
+                                              <tr>
+                                                <td>2</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                              </tr>
+                                              <tr>
+                                                <td>3</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                              </tr>
+                                            </tbody>
+                                          </Table>
+                                          <Table responsive="md">
+                                            <thead>
+                                              <tr>
+                                                <th>#</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>1</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                              </tr>
+                                              <tr>
+                                                <td>2</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                              </tr>
+                                              <tr>
+                                                <td>3</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                              </tr>
+                                            </tbody>
+                                          </Table>
+                                          <Table responsive="lg">
+                                            <thead>
+                                              <tr>
+                                                <th>#</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>1</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                              </tr>
+                                              <tr>
+                                                <td>2</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                              </tr>
+                                              <tr>
+                                                <td>3</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                              </tr>
+                                            </tbody>
+                                          </Table>
+                                          <Table responsive="xl">
+                                            <thead>
+                                              <tr>
+                                                <th>#</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                                <th>Table heading</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>1</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                              </tr>
+                                              <tr>
+                                                <td>2</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                              </tr>
+                                              <tr>
+                                                <td>3</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                                <td>Table cell</td>
+                                              </tr>
+                                            </tbody>
+                                          </Table>
                                         </div>
                             </div>
                         </div>

@@ -15,6 +15,7 @@ const User = function(user){
     this.proctor = user.proctor
     this.proctor_id = user.proctor_id
     this.message=user.message
+    this.marks = user.marks
 }
 
 User.create = (newUser, result) => {
@@ -52,13 +53,8 @@ User.create = (newUser, result) => {
 
 
 
-User.lal = (req, result) => {
-    console.log(req)
-    result(null, {test:"success"})
-}
-
 User.findUser = (gid, result) => {
-    var query = sql.query(`select * from student s, proctor p where s.g_id = "${gid}" and s.proctor_id = p.p_id;`, (err, res) => {
+    var select_student_query = sql.query(`select * from student s, proctor p where s.g_id = "${gid}" and s.proctor_id = p.p_id;`, (err, res) => {
         console.log("Haha")
         if(err) {
             console.log(err)
@@ -67,12 +63,21 @@ User.findUser = (gid, result) => {
         }
         if(res.length){
             console.log("User Found!", res[0])
-            console.log(query.sql)
+            console.log(select_student_query.sql)
             value = res[0]
             value.message = "User found"
-            result(null, value)
+            var marks_query = sql.query(`select * from marks where m_usn = "${value.usn}";`, (err, res) => {
+                if(err) console.log(err)
+                if (res.length){
+                    console.log("Marks retrived", marks_query.sql)
+                    value.marks = res
+                    result(null, value)
+                }
+                console.log(res)
+            })
             return;
         }
+
         result({kind:"not_found"}, null)
         console.log("No such user")
     })
