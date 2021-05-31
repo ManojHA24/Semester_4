@@ -1,4 +1,5 @@
 use proctor_portal;
+alter table student drop constraint fk_login;
 drop table login;
 select * from login;
 create table login(g_id varchar(30), role varchar(30));
@@ -16,7 +17,6 @@ insert into login values("23", "Proctor");
 delete from login where g_id = "108960148661406427027";
 
 drop table student;
-select * from student;
 create table student(g_id varchar(30),role varchar(30), name varchar(50), usn varchar(20),
 					department varchar(20), email varchar(50), mobile_no varchar(20), dob varchar(20),
                     proctor_id varchar(50), semester int, section varchar(3), batch varchar(10));
@@ -26,6 +26,7 @@ alter table student drop primary key;
 alter table student add constraint PK_student primary key(usn);
 alter table student add constraint fk_student_to_login foreign key (g_id) references login(g_id) on delete cascade;
 alter table student add constraint fk_student_to_proctor foreign key (proctor_id) references proctor(p_id) on delete cascade;
+alter table student drop constraint fk_student_to_proctor;
 describe student;
 insert into student values("1",  "Jeevan", "1BM", "CSE", "j@V.C", "+321","13-05-2001", "10", 4, "D", "2023");
 insert into student values("2",  "Jeevan1", "1BM1", "CSE", "j@V1.C", "+321","13-05-2001", "10", 4, "D", "2023");
@@ -52,9 +53,6 @@ insert into proctor values("22", "Vikranth BM sir", "vbm.cse@bmsce.ac.in", "+432
 insert into proctor values("23", "Rekha GS", "rekha.cse@bmsce.ac.in", "+4321");
 delete from proctor where mobile_no = "+4321";
 
-
-
-
 select * from courses;
 create table courses (course_id varchar(20), course_name varchar(100), credits int, course_semester int, course_department varchar(10));
 alter table courses add primary key (course_id);
@@ -67,8 +65,6 @@ insert into courses values("19CS3PCLOD", "Logic Design", 3, 3, "CSE");
 insert into courses values("19HS4PCEVS", "Environmental Studies", 2, 3, "CSE");
 insert into courses values("19CS3PWPW1", "Project Work-1", 2, 3, "CSE");
 insert into courses values("19CS3NCNC3", "Physical Activity (Sports/ Yoga Etc.)", 0, 3, "CSE");
-
-
 
 
 
@@ -86,6 +82,65 @@ insert into marks values("1BM19CS084", "19CS3PCLOD", 36, 35, 39, null, 47, 78, "
 insert into marks values("1BM19CS084", "19HS4PCEVS", 36, 35, 39, null, 47, 78, "pass");
 insert into marks values("1BM19CS084", "19CS3PWPW1", 36, 35, 39, null, 47, 78, "pass");
 insert into marks values("1BM19CS084", "19CS3NCNC3", 36, 35, 39, null, 47, 78, "pass");
+
+
+select * from courses;
+create table courses (course_id varchar(20), course_name varchar(100), credits int, course_semester int, course_department varchar(10));
+alter table courses add primary key (course_id);
+insert into courses values("18MA2BSEM2", "Engineering Mathematics-2", 4, 2, "CSE");
+insert into courses values("18PY2BSPHY", "Applied Physics", 5, 1, "CSE");
+insert into courses values("18EC2ESECE", "Elememts of Electronics Engineering", 3, 2, "CSE");
+insert into courses values("18ME2ESEME", "Elememts of Mechanical Engineering", 4, 2, "CSE");
+insert into courses values("18CS2ESCCP", "C Programming", 4, 2, "CSE");
+insert into courses values("18HS2NCKAN", "Functional English", 0, 2, "CSE");
+
+
+drop table marks;
+select * from marks;
+create table marks(m_usn varchar(20), m_course_id varchar(20), cie1 int, cie2 int, cie3 int,lab int, internal int, see int, status varchar(20));
+alter table marks add constraint fk_marks_to_student foreign key (m_usn) references student(usn) on delete cascade on update cascade;
+alter table marks add constraint fk_marks_to_courses foreign key(m_course_id) references courses(course_id) on delete cascade on update cascade;
+insert into marks values("1BM19CS084", "18MA2BSEM2", 36, 35, 39, null, 47, 78, "pass");
+insert into marks values("1BM19CS084", "18PY2BSPHY", 34, 39, 36, 23, 47, 80, "pass");
+insert into marks values("1BM19CS084", "18EC2ESECE", 40, 20, 35, 23, 46, 65, "pass");
+insert into marks values("1BM19CS084", "18ME2ESEME", 36, 35, 39, 25, 47, 78, "pass");
+insert into marks values("1BM19CS084", "18CS2ESCCP", 36, 35, 39, null, 47, 78, "pass");
+insert into marks values("1BM19CS084", "18HS2NCKAN", 36, 35, 39, null, 47, 78, "pass");
+
+
+
+select * from courses;
+create table courses (course_id varchar(20), course_name varchar(100), credits int, course_semester int, course_department varchar(10));
+alter table courses add primary key (course_id);
+insert into courses values("18MA1BSEM1", "Engineering Mathematics-1", 4, 1, "CSE");
+insert into courses values("18CY1BSCHY", "Engineering Chemistry", 5, 1, "CSE");
+insert into courses values("18EE1ESELE", "Elememts of Electrical Engineering", 3, 1, "CSE");
+insert into courses values("18ME1ESEED", "Elememts of Engineering Drawing", 4, 1, "CSE");
+insert into courses values("18CV1ESENM", "Engineering Mechanics", 4, 1, "CSE");
+insert into courses values("18HS1NCENG", "Functional English", 0, 1, "CSE");
+
+
+
+drop table marks;
+select * from marks;
+create table marks(m_usn varchar(20), m_course_id varchar(20), cie1 int, cie2 int, cie3 int,lab int, internal int, see int, status varchar(20));
+alter table marks add constraint fk_marks_to_student foreign key (m_usn) references student(usn) on delete cascade on update cascade;
+alter table marks add constraint fk_marks_to_courses foreign key(m_course_id) references courses(course_id) on delete cascade on update cascade;
+insert into marks values("1BM19CS084", "18MA1BSEM1", 36, 35, 39, null, 47, 78, "pass");
+insert into marks values("1BM19CS084", "18CY1BSCHY", 34, 39, 36, 23, 47, 80, "pass");
+insert into marks values("1BM19CS084", "18EE1ESELE", 40, 20, 35, 23, 46, 65, "pass");
+insert into marks values("1BM19CS084", "18ME1ESEED", 36, 35, 39, null, 47, 78, "pass");
+insert into marks values("1BM19CS084", "18CV1ESENM", 36, 35, 39, null, 47, 78, "pass");
+insert into marks values("1BM19CS084", "18HS1NCENG", 36, 35, 39, null, 47, 78, "pass");
+
+
+
+
+
+
+
+
+
 
 
 
