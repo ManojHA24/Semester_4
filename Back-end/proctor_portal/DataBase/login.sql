@@ -113,6 +113,7 @@ insert into marks values("1BM19CS084", "18EE1ESELE", 40, 20, 35, 23, 46, 65, "pa
 insert into marks values("1BM19CS084", "18ME1ESEED", 36, 35, 39, null, 47, 78, "pass");
 insert into marks values("1BM19CS084", "18CV1ESENM", 36, 35, 39, null, 47, 78, "pass");
 insert into marks values("1BM19CS084", "18HS1NCENG", 36, 35, 39, null, 47, 78, "pass");
+
 	
 
 

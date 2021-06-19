@@ -5,7 +5,7 @@ module.exports = app => {
 
     app.get("/student/Proc/:gid", student.proc)
 
-    // app.get("student/grades/:usn")
+    app.get("/student/grades/:gid", student.grades)
 
     // agg.get("student/details/:gid")
 
