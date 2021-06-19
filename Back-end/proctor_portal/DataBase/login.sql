@@ -42,7 +42,7 @@ select * from student s, proctor p where s.g_id = 1 and s.proctor_id = p.p_id;
 select * from proctor;
 describe proctor;
 drop table proctor;
-create table proctor(p_id varchar(30), name varchar(50), email varchar(50), mobile_no varchar(20));
+create table proctor(p_id varchar(30), p_name varchar(50), p_email varchar(50), p_mobile_no varchar(20));
 alter table proctor add constraint PK_Proctor primary key (name);
 alter table proctor drop primary key;
 alter table proctor change name p_name varchar(50);
