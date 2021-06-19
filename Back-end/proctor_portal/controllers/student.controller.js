@@ -1,6 +1,6 @@
 const Student = require("../models/student")
 
-exports.profile = (req, res) => {
+exports.profiles = (req, res) => {
     Student.get_profile(req.params.gid, (err, data) => {
         if(err){
             res.status(500).send({
@@ -39,3 +39,31 @@ exports.proc = (req, res) => {
         res.send(data)
     })
 }
+
+
+exports.details = (req, res) => {
+    Student.get_details(req.params.gid, (err, data) => {
+        if(err){
+            console.log(err)
+            res.status(500).send({
+                message: "error!"
+            })
+            return
+        }
+        res.send(data)
+    })
+}
+
+
+// exports.student = (req, res) => {
+//     Student.get_student(req.params.gid, (err, data) => {
+//         if(err){
+//             console.log(err)
+//             res.status(500).send({
+//                 message: "error!"
+//             })
+//             return
+//         }
+//         res.send(data)
+//     })
+// }

@@ -114,6 +114,18 @@ insert into marks values("1BM19CS084", "18ME1ESEED", 36, 35, 39, null, 47, 78, "
 insert into marks values("1BM19CS084", "18CV1ESENM", 36, 35, 39, null, 47, 78, "pass");
 insert into marks values("1BM19CS084", "18HS1NCENG", 36, 35, 39, null, 47, 78, "pass");
 
+
+
+
+create table details(g_id varchar(30),f_name varchar(100),f_occupation varchar(100),
+					f_mobile_no varchar(20),f_email varchar(100),m_name varchar(100),m_occupation varchar(100),
+					m_mobile_no varchar(20),m_email varchar(100));
+
+alter table details add foreign key (g_id) references login(g_id) on delete cascade on update cascade;
+select * from details ;
+
+insert into details values ('1','xyz','wxyz','+9876','xyz@g.com','mno','mnop','+6789','mno@g.com');
+
 	
 
 

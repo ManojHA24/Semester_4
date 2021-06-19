@@ -1,10 +1,11 @@
 const sql = require('./db')
-
+// const fetch = require('node-fetch')
+const { profile } = require('../controllers/student.controller')
 
 const Student =function(student) {
     this.gid = student.gid,
-    this.role= "Student",
-    this.profile = student.profile
+    this.role= "Student"
+    // this.profile = student.profile
 }
 
 Student.get_profile = (gid, result) => {
@@ -45,7 +46,7 @@ Student.get_proc = (gid, result) => {
 
 
 Student.get_grades = (gid, result) => {
-    const get_grades_query = sql.query(`select c.course_id, c.course_name, c.credits, c.course_semester, c.course_department, m.m_course_id, m.cie1, m.cie2, m.cie3, m.lab, m.internal, m.see from student s, marks m, courses c where s.g_id = "${gid}" and s.usn = m.m_usn and m.m_course_id = c.course_id;`, (err, res) => {
+    const get_grades_query = sql.query(`select c.course_id, c.course_name, c.credits, c.course_semester, c.course_department, m.cie1, m.cie2, m.cie3, m.lab, m.internal, m.see from student s, marks m, courses c where s.g_id = "${gid}" and s.usn = m.m_usn and m.m_course_id = c.course_id;`, (err, res) => {
         if(err){
             console.log("Error")
             result(err, null)
@@ -61,5 +62,31 @@ Student.get_grades = (gid, result) => {
         result(null, {message: "No grades found"})
     })
 }
+
+
+Student.get_details = (gid, result)=> {
+    const get_student_details = sql.query(`select * from details where g_id = "${gid}";`, (err, res) => {
+        if(err){
+            console.log("Error")
+            result(err, null)
+            return
+        }
+        if(res.length){
+            console.log(get_student_details.sql)
+            console.log(res)
+            result(null, res)
+            return
+        }
+        console.log("No details found!")
+        result(null, {message: "No details found"})
+    })
+}
+
+
+// Student.get_student =(gid, result) => {
+//     get_profiles(gid).then((data) => console.log(data))
+//     result(null, {profile: "magic", shit: "shit only"})
+//     return        
+// }
 
 module.exports = Student
