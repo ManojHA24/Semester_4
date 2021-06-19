@@ -1,21 +1,9 @@
 const sql = require('./db')
 
 const User = function(user){
+    
     this.gid = user.gid
     this.role = user.role
-    this.name = user.name
-    this.email = user.email
-    this.dob = user.dob
-    this.mobile_no = user.mobile_no
-    this.department = user.department
-    this.batch = user.batch
-    this.section = user.section
-    this.semester = user.semester
-    this.usn = user.usn
-    this.proctor = user.proctor
-    this.proctor_id = user.proctor_id
-    this.message=user.message
-    this.marks = user.marks
 }
 
 User.create = (newUser, result) => {
@@ -54,32 +42,22 @@ User.create = (newUser, result) => {
 
 
 User.findUser = (gid, result) => {
-    var select_student_query = sql.query(`select * from student s, proctor p where s.g_id = "${gid}" and s.proctor_id = p.p_id;`, (err, res) => {
-        console.log("Haha")
-        if(err) {
-            console.log(err)
+    var select_user = sql.query(`select * from login where login.g_id = "${gid}";`, (err, res)=> {
+        if(err){
+            console.log("There was an error getting user role", err)
             result(err, null)
-            return;
+            return
         }
         if(res.length){
-            console.log("User Found!", res[0])
-            console.log(select_student_query.sql)
-            value = res[0]
-            value.message = "User found"
-            var marks_query = sql.query(`select * from marks where m_usn = "${value.usn}";`, (err, res) => {
-                if(err) console.log(err)
-                if (res.length){
-                    console.log("Marks retrived", marks_query.sql)
-                    value.marks = res
-                    result(null, value)
-                }
-                console.log(res)
-            })
-            return;
+            console.log("User found!", res[0])
+            console.log(select_user.sql)
+            result(null, res[0])
+            return
         }
-
-        result({kind:"not_found"}, null)
-        console.log("No such user")
+        else{
+            console.log("User not found!")
+            result({type : "not_found"}, null)
+        }
     })
 }
 

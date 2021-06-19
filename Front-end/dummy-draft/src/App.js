@@ -417,7 +417,7 @@ class HomePage extends React.Component{
                                           <Table responsive="sm">
                                             <thead>
                                               <tr>
-                                                <th>#</th>
+                                                <th>Sem 4</th>
                                                 <th>Table heading</th>
                                                 <th>Table heading</th>
                                                 <th>Table heading</th>

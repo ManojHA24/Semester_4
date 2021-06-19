@@ -9,18 +9,20 @@ exports.create = (req, res) => {
     const user = new User({
         gid: req.body.gid,
         role:req.body.role,
-        name:req.body.name,
-        dob:req.body.dob,
-        proctor:req.body.proctor,
-        email:req.body.email,
-        semester: req.body.semester,
-        mobile_no: req.body.mobile_no,
-        proctor_id:0,
-        batch: req.body.batch,
-        usn: req.body.usn,
-        department: req.body.department,
-        section: req.body.section,
-        marks: req.body.marks
+        // profile: {
+        //     name:req.body.name,
+        //     dob:req.body.dob,
+        //     proctor:req.body.proctor,
+        //     email:req.body.email,
+        //     semester: req.body.semester,
+        //     mobile_no: req.body.mobile_no,
+        //     proctor_id:0,
+        //     batch: req.body.batch,
+        //     usn: req.body.usn,
+        //     department: req.body.department,
+        //     section: req.body.section,
+        //     marks: req.body.marks
+        // }
 
     })
     User.create(user, (err, data) => {
@@ -37,7 +39,7 @@ exports.create = (req, res) => {
 exports.findUser = (req, res) => {
     User.findUser(req.params.gid, (err, data) => {
         if (err){        
-            if(err.kind === "not_found")
+            if(err.type === "not_found")
                 res.status(404).send({
                     message: `Not found user`
                 })
@@ -45,7 +47,8 @@ exports.findUser = (req, res) => {
                 res.status(500).send({
                     message: `Some error in retriving user`
                 })
+            return
         }
-        else res.send(data)
+        res.send(data)
     })
 }

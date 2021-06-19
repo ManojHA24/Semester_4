@@ -13,10 +13,10 @@ var connection = mysql.createConnection({
 connection.connect();
 var id = "12344"
 var role = "student"
-var sql = `select p_id from proctor where name = "Test sir"`;
+var sql = `select * from login where role = "Student"`;
 
 var query = connection.query(sql, function(err, result){
     if(err) console.log(err)
     console.log(query.sql);
-    console.log(result[0].p_id)
+    console.log(result)
 })

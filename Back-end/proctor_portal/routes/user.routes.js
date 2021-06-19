@@ -5,6 +5,12 @@ module.exports = app => {
 
     app.get("/user/:gid", user.findUser)
 
+    // app.get("student/Proc/:gid")
+
+    // app.get("student/grades/:usn")
+
+    // agg.get("student/details/:gid")
+
     app.get("/:random", (req, res)=>{
         res.json({message: "123"})
     })
