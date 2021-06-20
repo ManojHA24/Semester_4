@@ -22,5 +22,6 @@ app.use(cors({
 require("./routes/student.routes")(app)
 require("./routes/user.routes")(app)
 require("./routes/courses.routes")(app)
+require("./routes/proctor.routes")(app)
 
 app.listen(Port, console.log(`App listening on port ${Port}`))
