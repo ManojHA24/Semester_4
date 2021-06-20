@@ -9,6 +9,6 @@ module.exports = app => {
 
     app.get("/student/details/:gid", student.details)
 
-    // app.get("/student/:gid", student.student)
+    app.get("/student/:gid", student.student)
 
 } 

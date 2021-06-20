@@ -1,6 +1,5 @@
 const sql = require('./db')
-// const fetch = require('node-fetch')
-const { profile } = require('../controllers/student.controller')
+const fetch = require('node-fetch')
 
 const Student =function(student) {
     this.gid = student.gid,
@@ -20,6 +19,8 @@ Student.get_profile = (gid, result) => {
             result(null, res[0])
             return
         }
+        console.log("No profile")
+        result(null, {message: "Profile not found"})
     })
 }
 
@@ -83,10 +84,26 @@ Student.get_details = (gid, result)=> {
 }
 
 
-// Student.get_student =(gid, result) => {
-//     get_profiles(gid).then((data) => console.log(data))
-//     result(null, {profile: "magic", shit: "shit only"})
-//     return        
-// }
+Student.get_student =(gid, result) => {
+    data = {}
+    fetch(`http://localhost:8000/student/profile/${gid}`).then(res => res.json()).then((profile) => {
+        data.profile = profile
+        console.log(profile)
+        fetch(`http://localhost:8000/student/proc/${gid}`).then(res => res.json()).then((proc) => {
+            data.proc = proc
+            console.log(proc)
+            fetch(`http://localhost:8000/student/grades/${gid}`).then(res => res.json()).then((grades) => {
+                data.marks = grades
+                console.log(grades)
+                fetch(`http://localhost:8000/student/details/${gid}`).then(res => res.json()).then((details) => {
+                    data.details = details
+                    console.log(details)
+                    result(null, data)
+                    return
+                })
+            })
+        })
+    })
+}
 
 module.exports = Student

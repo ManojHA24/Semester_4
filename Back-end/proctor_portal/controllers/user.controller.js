@@ -9,7 +9,10 @@ exports.create = (req, res) => {
     const user = new User({
         gid: req.body.gid,
         role:req.body.role,
-        // profile: {
+        profile: req.body.profile,
+        details: req.body.details
+        
+        // {
         //     name:req.body.name,
         //     dob:req.body.dob,
         //     proctor:req.body.proctor,
@@ -23,6 +26,7 @@ exports.create = (req, res) => {
         //     section: req.body.section,
         //     marks: req.body.marks
         // }
+
 
     })
     User.create(user, (err, data) => {

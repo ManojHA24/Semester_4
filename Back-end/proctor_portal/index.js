@@ -19,7 +19,8 @@ app.use(cors({
     origin:'http://localhost:3000',
 }))
 
-require("./routes/student.routes")(app);
-require("./routes/user.routes")(app);
+require("./routes/student.routes")(app)
+require("./routes/user.routes")(app)
+require("./routes/courses.routes")(app)
 
 app.listen(Port, console.log(`App listening on port ${Port}`))

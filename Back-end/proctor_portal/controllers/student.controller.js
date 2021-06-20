@@ -55,15 +55,15 @@ exports.details = (req, res) => {
 }
 
 
-// exports.student = (req, res) => {
-//     Student.get_student(req.params.gid, (err, data) => {
-//         if(err){
-//             console.log(err)
-//             res.status(500).send({
-//                 message: "error!"
-//             })
-//             return
-//         }
-//         res.send(data)
-//     })
-// }
+exports.student = (req, res) => {
+    Student.get_student(req.params.gid, (err, data) => {
+        if(err){
+            console.log(err)
+            res.status(500).send({
+                message: "error!"
+            })
+            return
+        }
+        res.send(data)
+    })
+}

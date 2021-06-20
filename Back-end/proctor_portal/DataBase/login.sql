@@ -125,7 +125,7 @@ alter table details add foreign key (g_id) references login(g_id) on delete casc
 select * from details ;
 
 insert into details values ('1','xyz','wxyz','+9876','xyz@g.com','mno','mnop','+6789','mno@g.com');
+insert into details values ('108960148661406427027', 'M Eswaraiah', 'Pharmacist', '+91805098125', 'eswar_1969@rediffmail.com', 'B K Neeraja', 'Teacher', '+918553782343', 'bkneeraja19@gmail.com');
 
-	
 
 
