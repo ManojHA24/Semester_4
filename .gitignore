@@ -1,2 +1,3 @@
 Back-end/proctor_portal/node_modules
 Back-end/sql-connect/node_modules
+Back-end/proctor_portal/models/db.config.js
